@@ -1,0 +1,235 @@
+:root {
+  --bg-color: #fce4ec;           /* Soft pink */
+  --bg-gradient: linear-gradient(145deg, #fde6ef, #fdd0e3, #fde6ef);
+  --main-color: #5e3a7a;         /* Rich purple */
+  /* --secondary-color: #d28bd0;    Light plum/pink */
+  --card-radius: 18px;
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --shadow-color: rgba(94, 58, 122, 0.15);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-gradient);
+  color: var(--main-color);
+  font-family: var(--font-family);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  overflow-x: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+header {
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 0.8rem;
+  font-weight: 700;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+}
+
+.main-heading {
+  font-size: 2rem;
+  text-align: center;
+  padding: 1.2rem 2rem;
+  color: #5e3a7a;
+  font-family: 'Segoe UI', sans-serif;
+  position: relative;
+  display: inline-block;
+  z-index: 1;
+  background-image: url("../images/brush-stroke.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
+}
+
+h1 {
+  user-select: none;
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.flip-card {
+  width: 200px;
+  height: 200px;
+  perspective: 1000px;
+  background: var(--bg-gradient);
+  border-radius: 16px;
+  padding: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.flip-card-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  border-radius: 12px;
+}
+
+.flip-card.flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.flip-card-front {
+  background: #ffeaf2;
+}
+
+.flip-card-front img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.flip-card-back {
+  background: var(--secondary-color);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotateY(180deg);
+  font-size: 0.9rem;
+  padding: 0.8rem;
+  text-align: center;
+}
+
+.photo-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--card-radius);
+  user-select: none;
+}
+
+.typing {
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  min-height: 3.5rem;
+  color: var(--main-color);
+  letter-spacing: 0.03rem;
+  font-weight: 500;
+  user-select: text;
+  white-space: pre-wrap;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  margin: 1rem 0 2rem;
+  flex-wrap: wrap;
+  z-index: 2;
+  position: relative;
+}
+
+.toggle-btn {
+  background-color: var(--main-color);
+  color: var(--bg-color);
+  border: none;
+  border-radius: 20px;
+  padding: 0.6rem 1.4rem;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 10px var(--shadow-color);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  user-select: none;
+  position: relative;
+  z-index: 2;
+}
+
+.toggle-btn:hover,
+.toggle-btn:focus {
+  background-color: #5e3a7a;
+  transform: scale(1.05);
+  outline: none;
+}
+
+.toggle-btn.active {
+  background-color: #c27cbf;
+  color: #faf9f6;
+  box-shadow: 0 0 15px #c27cbf;
+}
+
+.hidden-section {
+  display: none;
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  padding: 1.2rem 1.6rem;
+  background: linear-gradient(135deg, #fbd1e1, #fde8f1, #fbd1e1);
+  border-radius: var(--card-radius);
+  box-shadow: 0 8px 24px rgba(62, 31, 71, 0.1);
+  color: var(--main-color);
+  font-size: 1.15rem;
+  line-height: 1.6;
+  user-select: text;
+  z-index: 2;
+  position: relative;
+  border: 1px solid #f9bad2;
+}
+
+footer {
+  margin-top: auto;
+  padding: 1rem;
+  font-size: 0.95rem;
+  color: var(--main-color);
+  user-select: none;
+  text-align: center;
+}
+
+@media (max-width: 480px) {
+  .flip-card {
+    width: 140px;
+    height: 140px;
+  }
+
+  .typing {
+    font-size: 1rem;
+  }
+
+  .toggle-btn {
+    font-size: 0.9rem;
+    padding: 0.5rem 1.1rem;
+  }
+}
+
+#heart-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.12;
+  display: block;
+  filter: drop-shadow(0 0 4px rgba(94, 58, 122, 0.2));
+  user-select: none;
+}

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Happy Birthday Asiya 🎉</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- External Styles and Scripts -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script defer src="{{ url_for('static', filename='js/animations.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.min.js"></script>
+</head>
+<body>
+  <!-- 3D Heart Background Canvas -->
+  <canvas id="heart-background"></canvas>
+
+  <header>
+    <h1 class="main-heading fade-in-up">Happy Birthday Asiya! 🎂💖🫂</h1>
+  </header>
+
+  <section class="button-container">
+    <button id="btn-photos" class="toggle-btn" aria-expanded="false" aria-controls="photo-gallery">Our photo-memories</button>
+    <button id="btn-message" class="toggle-btn" aria-expanded="false" aria-controls="message-box">Message for you</button>
+    <button id="btn-surprise" class="toggle-btn" aria-expanded="false">More surprise</button>
+  </section>
+
+  <section id="photo-gallery" class="gallery hidden-section fade-in-up" aria-hidden="true" tabindex="-1">
+    {% for i in range(0, 6, 2) %}
+    <div class="flip-card" tabindex="0" role="button" aria-pressed="false" onclick="toggleFlip(this)" onkeydown="if(event.key==='Enter' || event.key===' ') toggleFlip(this);">
+      <div class="flip-card-inner">
+        <div class="flip-card-front photo-card" aria-label="Photo {{ i + 1 }}">
+          <img src="{{ url_for('static', filename='photos/' + photos[i]) }}" alt="Photo {{ i + 1 }}">
+        </div>
+        <div class="flip-card-back photo-card" aria-label="Photo {{ i + 2 }}">
+          <img src="{{ url_for('static', filename='photos/' + photos[i + 1]) }}" alt="Photo {{ i + 2 }}">
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </section>
+
+  <section id="message-box" class="hidden-section fade-in-up" aria-hidden="true" tabindex="-1">
+    <p>
+      Wishing you endless happiness and love on your special day. You are truly a shining star 🌟 in my life.<br><br>
+      Here’s to many more memories and smiles together! 💖<br><br>
+      From your best friend always — Sairaj ❤️
+    </p>
+  </section>
+
+  <footer>Made with infinite ❤️ by Sairaj</footer>
+
+  <audio id="surprise-audio" src="{{ url_for('static', filename='audio/aa_chal_ke_tujhe.mp3') }}" preload="auto" loop></audio>
+
+  <script>
+    // Toggle sections
+    const btnPhotos = document.getElementById('btn-photos');
+    const btnMessage = document.getElementById('btn-message');
+    const btnSurprise = document.getElementById('btn-surprise');
+
+    const photoGallery = document.getElementById('photo-gallery');
+    const messageBox = document.getElementById('message-box');
+    const surpriseAudio = document.getElementById('surprise-audio');
+
+    btnPhotos.addEventListener('click', () => {
+      const isVisible = photoGallery.style.display === 'flex';
+      photoGallery.style.display = isVisible ? 'none' : 'flex';
+      photoGallery.setAttribute('aria-hidden', isVisible);
+      btnPhotos.setAttribute('aria-expanded', !isVisible);
+      if (!isVisible) photoGallery.focus();
+    });
+
+    btnMessage.addEventListener('click', () => {
+      const isVisible = messageBox.style.display === 'block';
+      messageBox.style.display = isVisible ? 'none' : 'block';
+      messageBox.setAttribute('aria-hidden', isVisible);
+      btnMessage.setAttribute('aria-expanded', !isVisible);
+      if (!isVisible) messageBox.focus();
+    });
+
+    btnSurprise.addEventListener('click', () => {
+      if (surpriseAudio.paused) {
+        surpriseAudio.play();
+        btnSurprise.classList.add('active');
+        btnSurprise.setAttribute('aria-expanded', 'true');
+      } else {
+        surpriseAudio.pause();
+        btnSurprise.classList.remove('active');
+        btnSurprise.setAttribute('aria-expanded', 'false');
+      }
+    });
+  </script>
+</body>
+</html>
